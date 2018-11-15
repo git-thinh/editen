@@ -1,0 +1,21 @@
+Use NodeJs implement for WebAPI:
+
+- Download NodeJS from address: https://nodejs.org/dist/v10.9.0/node-v10.9.0-linux-x64.tar.xz
+- Copy file nodejs/node-v10.9.0-linux-x64.tar.xz to /root
+- Copy file nodejs/app.js to /root/webapi/app.js
+- Run command: 
+	tar -xf node-v10.9.0-linux-x64.tar.xz --directory /usr/local --strip-components 1
+	node --version
+	npm --version
+-----------------------------------------------------------------------
+npm install --save express
+npm install --save ws
+npm install --save node-fetch
+
+npm install --save lodash
+npm install --save underscore
+
+npm install --save protobufjs
+npm install --save grpc @grpc/proto-loader
+
+npm install --save googleapis
