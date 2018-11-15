@@ -15,7 +15,7 @@ const _ = require('lodash');
 // READ FILES
 var fs = require('fs'),
     path = require('path'),
-    file_domain = path.join(__dirname, 'data/domain.json');
+    file_domain = path.join(__dirname, '../json/domain.json');
 
 var buffer_domain = fs.readFileSync(file_domain, 'utf8');
 var _DOMAINS = JSON.parse(buffer_domain);
