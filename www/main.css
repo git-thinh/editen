@@ -29,7 +29,42 @@ body {
     font-size: 1.4em;
     font-family: Arial;
     overflow: hidden;
+    background-color:#ccc;
 }
+
+#___loading {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index: 99999999;
+    display: none;
+}
+
+    #___loading table {
+        /*background-color: #e1e1e1;*/
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+    }
+
+    #___loading .modal-bg {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        z-index: 0;
+        background-color: #ccc;
+        opacity: 0.5;
+    }
+
+#app {
+    z-index:0;
+}
+
+/*/////////////////////////////////////////////*/
 
 #main {
     display: inline-block;
@@ -104,7 +139,7 @@ body {
     top: 32px;
     bottom: 0;
     width: 123px;
-    border-right:1px solid #ccc;
+    border-right: 1px solid #ccc;
 }
 
 #tab_content .w2ui-grid-header {

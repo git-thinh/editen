@@ -7,20 +7,21 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "editen", ".", "{048AF273-4C
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_49296"
-		Debug.AspNetCompiler.PhysicalPath = "G:\GoogleDrive\editen\"
+		Debug.AspNetCompiler.PhysicalPath = "..\editen\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49296\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_49296"
-		Release.AspNetCompiler.PhysicalPath = "G:\GoogleDrive\editen\"
+		Release.AspNetCompiler.PhysicalPath = "..\editen\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_49296\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "49296"
+		SlnRelativePath = "..\editen\"
 	EndProjectSection
 EndProject
 Global

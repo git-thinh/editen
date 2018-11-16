@@ -14,15 +14,14 @@
     <script src="dist/jquery.min.1.11.1.js"></script>
     <script src="dist/w2ui.min.js"></script>
     <script src="tree/jstree.min.js"></script>
+    
     <link href="main.css" rel="stylesheet" />
-    <script src="tab/user.js"></script>
-    <script src="tab/api.js"></script>
 </head>
 
 <body>
+    <div id="___loading"></div>
     <div id="app">
-        <component :is="currentView">
-        </component>
+        <component :is="currentView" keep-alive></component>
     </div>
 
     <script src="main.js"></script>
