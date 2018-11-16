@@ -1,6 +1,7 @@
 /////////////////////////////////////////////////////////////////////////
 // VARIABLE
 const _PORT = 80; //61422
+const _WWW = '../www';
 /////////////////////////////////////////////////////////////////////////
 // CONTRACTOR
 const fetch = require('node-fetch');
@@ -32,8 +33,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-//app.use(express.static('public'));
-app.use(express.static('../www'));
+app.use(express.static(_WWW));
 /////////////////////////////////////////////////////////////////////////
 
 const _GOO_DRIVER_API_URL = {
@@ -52,18 +52,54 @@ const _URL = {
     get_files: 'http://localhost:' + _PORT + '/get_files'
 };
 
-app.get('/', function (req, res) {
-    //var code = req.query.code;
-    //if (code == null) {
-    //    const _OPEN_AUTH_CLIENT = new google.auth.OAuth2(_CONFIG.CLIENT_ID, _CONFIG.CLIENT_SECRET, _CONFIG.REDIRECT_URI);
-    //    const url_oauthcallback = _OPEN_AUTH_CLIENT.generateAuthUrl({ access_type: 'offline', scope: _CONFIG.SCOPES });
-    //    res.redirect(url_oauthcallback);
-    //} else {
-    //    _CONFIG.CODE_AUTH_CLIENT = code;
-    //    res.redirect('/get_token');
-    //}
-    res.json({ time: new Date().toString() });
+
+const { promisify } = require('util');
+const { resolve } = require('path');
+//const fs = require('fs');
+const readdir = promisify(fs.readdir);
+const rename = promisify(fs.rename);
+const stat = promisify(fs.stat);
+
+async function getFiles(dir) {
+    const subdirs = await readdir(dir);
+    const files = await Promise.all(subdirs.map(async (subdir) => {
+        const res = resolve(dir, subdir);
+        return (await stat(res)).isDirectory() ? getFiles(res) : res;
+    }));
+    //return files.reduce((a, f) => a.concat(f), []);
+    return files;  
+}
+
+const isFile = oFile => {
+    return fs.lstatSync(oFile.path).isFile();
+}
+
+const _fet_GET_HOME_PAGE = async (req, res, next) => {
+    //req.data = await getFiles(_WWW);
+
+    var folderPath = resolve(_WWW); 
+    req.data = await fs.readdirSync(folderPath).map(fileName => {
+        return {
+            name: fileName,
+            path: path.join(folderPath, fileName)
+        };
+    }).filter(isFile); 
+
+    next();
+};
+app.get('/', _fet_GET_HOME_PAGE, ({ data }, res) => {
+
+    //var compiled = _.template('<a href="<%= name %>"> <%= name %> </a><br>');
+    var compiled = _.template('<% _.forEach(links, function(lk) { %> <a href="<%= lk.name %>"> <%= lk.name %> </a><br> <% }); %>');
+    var htm = compiled({ 'links': data });
+
+    res.send(htm);
 });
+
+
+//app.get('/', function (req, res) { 
+//    res.json({ time: new Date().toString() });
+//});
 
 app.get('/google-driver-login', function (req, res) {
     const _OPEN_AUTH_CLIENT = new google.auth.OAuth2(_CONFIG.CLIENT_ID, _CONFIG.CLIENT_SECRET, _CONFIG.REDIRECT_URI);
