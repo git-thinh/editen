@@ -105,6 +105,7 @@ var _app = new Vue({
         var _self = this;
         f_log('VUE:: compiled');
 
+        _self.f_mod_init('home');
         _self.f_mod_init('user');
         _self.f_mod_init('test');
 

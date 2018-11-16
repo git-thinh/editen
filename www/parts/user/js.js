@@ -58,7 +58,10 @@ var ___com = Vue.extend({
                             var valid = this.validate();
                             f_log(valid);
                             if (valid && valid.length == 0) {
-
+                                _LOADING.f_show();
+                                setTimeout(function () {
+                                    _self.f_mod_load('home');
+                                }, 3000);
                             }
                         },
                         "cancel": function () {
