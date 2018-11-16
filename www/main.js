@@ -98,6 +98,7 @@ var _mixin = {
             f_log('f_com3 -> dynamic component -> destroy ...');
 
             //this.destroy();
+            //this.$destroy();
 
             var temp = '<div><h1> Test com3: <br>{{ msg }} </h1></div>' + _page;
 
@@ -165,6 +166,8 @@ var _mixin = {
 
             // mount it on an element
             _profile = profile.$mount('#mount-point');
+            //_profile = profile.$mount(this.$el);
+            // this.$root.$data to bind reactive on templates
 
         },
         f_com1: function () {
