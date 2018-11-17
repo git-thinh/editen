@@ -2,7 +2,8 @@
 function f_get(url) { var r = new XMLHttpRequest(); r.open('GET', url, false); r.send(null); if (r.status === 200) return r.responseText; return ''; }
 function f_temp(code, id) { return '<div id="' + id + '" class="vue_com ' + code + '">' + f_get('/parts/' + code + '/index.html') + '<link href="/parts/' + code + '/css.css" rel="stylesheet" /></div>'; }
 
-var _LOADING = { f_show: function (message) { }, f_hide: function () { } };
+var _LOADING, _HEADER, VUE_COM_BASE_CONTRACTOR;
+
 // #region [ LOADING ]
 
 var loading_selector = '#___loading';
@@ -46,7 +47,7 @@ _LOADING.f_show();
 
 // #region [ VUE_COM_BASE_CONTRACTOR ]
 
-var VUE_COM_BASE_CONTRACTOR = {
+VUE_COM_BASE_CONTRACTOR = {
     created: function () {
         f_log('Class Base component created ... data = ', JSON.stringify(this.$data));
     },
@@ -54,6 +55,9 @@ var VUE_COM_BASE_CONTRACTOR = {
         BROADCAST_TO_COMS: 'f_receiver_messageFromVue'
     },
     methods: {
+        f_header_init: function () {
+            this.$root.f_header_init();
+        },
         f_mod_load: function (code) {
             this.$root.f_mod_load(code);
         },
@@ -105,13 +109,19 @@ var _app = new Vue({
         var _self = this;
         f_log('VUE:: compiled');
 
+        _self.f_mod_init('header');
         _self.f_mod_init('home');
         _self.f_mod_init('user');
         _self.f_mod_init('test');
 
         _self.f_mod_load('user');
+        _self.f_header_init();
     },
     methods: {
+        f_header_init: function () {
+            f_log('VUE:: HEADER -> init ...');
+            _HEADER = _HEADER.$mount('#___header');
+        },
         f_mod_load: function (code) {
             this.currentView = code;
         },
@@ -123,7 +133,11 @@ var _app = new Vue({
             s = s.split('[___id]').join(id).split('[___code]').join(code).split('___com').join('com_' + code) + ';\r\n com_' + code + ';';
             var myComponent = eval(s);
 
-            Vue.component(code, myComponent);
+            if (code == 'header')
+                _HEADER = new myComponent();
+            else
+                Vue.component(code, myComponent);
+
             //var com = new myComponent();
             //_com = com.$mount('#mount-point');
 

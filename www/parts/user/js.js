@@ -4,6 +4,7 @@
 var ___com = Vue.extend({
     mixins: [VUE_COM_BASE_CONTRACTOR],
     template: f_temp(___code, ___id),
+    replace: false,
     data: function () {
         return {
             el_id: ___id
@@ -60,8 +61,9 @@ var ___com = Vue.extend({
                             if (valid && valid.length == 0) {
                                 _LOADING.f_show();
                                 setTimeout(function () {
+                                    _self.f_header_init();
                                     _self.f_mod_load('home');
-                                }, 3000);
+                                }, 300);
                             }
                         },
                         "cancel": function () {
