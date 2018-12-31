@@ -37,7 +37,7 @@ _LOADING = new ILoading({
             this.$el.style.display = 'none';
             this.message = '';
             f_log('LOADING:: hidden...');
-        },
+        }
     }
 });
 _LOADING = _LOADING.$mount(loading_selector);
@@ -142,7 +142,7 @@ var _app = new Vue({
             //_com = com.$mount('#mount-point');
 
             _self.modules.push(code);
-        },
+        }
     }
 });
 
